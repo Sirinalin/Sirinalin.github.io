@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Accessories</title>
+    <link rel="stylesheet" href="css/global.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .highlight-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #efceff;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .tables-container {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #efceff;
+        }
+
+        /* Button styling */
+        .short-button {
+            width: 100px; /* Adjust the width as needed */
+            padding: 5px; /* Adjust the padding as needed */
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px; /* Add a max-width for better centering */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+    </style>
+
+    <script>
+        function updateDate() {
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            document.getElementById("quotationDate").innerText = date;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="highlight-line">
+            <h4 class="left">Delivery Order</h4>
+            <h4 class="right">Quotation</h4>
+        </div>
+
+        <br>
+
+        <div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>Everywhere Express</h2>
+                    <p>
+                        Satholketon
+                        <br>Vegtthaya
+                        <br>Earth 562
+                        <br>97468
+                        <br> 
+                        <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                        458-963-9812
+                </div>
+                <div class="col-sm-5"></div>
+                <div class="col-sm-3 text-center">
+                    <img src="https://as1.ftcdn.net/v2/jpg/04/36/41/40/1000_F_436414005_HtjRNSkIkEX5FXqrQvVWtgCqoOkZwkq3.jpg" style="width:100px;height:100px;">
+                    <p>
+                        Quotation no: 16<br> Customer ID : 8539 <br>Date: <span id="quotationDate"></span>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div>
+            <h2>Quotation for</h2>
+            Name: Yevvet <br> 
+            Address : 31 Utraiyt Olakioppe Lychopyts <br>
+            Planet : Earth 34 <br>
+            Phone : 699-426-873
+
+        </div>
+
+        <hr style="height:1px;border:none;color:#000000;background-color:#333;">
+
+
+        
+        <button id="open-modal" class="short-button">Add Item</button>
+
+        <div id="addAccessoryModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Accessory</h3>
+                <select id="accessory-select">
+                    <option value="100">Random alien's photo</option>
+                    <option value="150">Alien's leftover</option>
+                    <option value="300">Alien's stuff</option>
+                    <option value="2500">Alien's foods</option>
+                    <option value="3000">Alien's liquid</option>
+                    <option value="10000">Unknown liquid</option>
+                    <!-- Add more options here -->
+                </select>
+                <input type="number" id="amount-input" min="1" value="1">
+                <button id="add-button">Add</button>
+            </div>
+        </div>
+
+        <div class="tables-container">
+            <table id="product-list">
+                <tr>
+                    <th>Accessory</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Vat</th>
+                    <th>Actions</th>
+                </tr>
+            </table>
+        </div>
+
+        <br> <br>
+
+        <div class="row">
+            <div class="col">
+              <p>
+                <b>Make all checks payable before:</b>
+                <br /><i>31 August 6078</i> <br /><b
+                  >If you have any questions concerning this quotaion, please contact:</b
+                >
+                <br /><i>support@Everywhere.co.th</i> <br />
+                <br />
+                <br>
+                <b>Thank you</b>
+                <br /><i>Everywhere Express Co.</i> <br />
+              </p>
+            </div>
+        <div>
+
+        <div class="row">
+            <div class="col">
+              <p class="text-right">SubTotal: <span id="total-price">0.00</span></p>
+              <p class="text-right">VAT: <span id="total-vat">0.00</span></p>
+              <b class="highlight-line" style="float: right"
+                >Total: <span id="total-price-with-vat">0.00</span></b
+              >
+            </div>
+        </div>
+
+    
+
+
+        
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Open the modal
+            $("#open-modal").click(function(){
+                $("#addAccessoryModal").show();
+            });
+
+            // Close the modal
+            $(".close").click(function(){
+                $("#addAccessoryModal").hide();
+            });
+
+            // Add item to the table
+            $("#add-button").click(function(){
+                var accessorySelect = $("#accessory-select");
+                var selectedAccessory = accessorySelect.find(":selected").text();
+                var selectedAccessoryValue = accessorySelect.val();
+                var amount = $("#amount-input").val();
+                var price = parseFloat(selectedAccessoryValue);
+                var vatRate = 0.07;
+                var vatAmount = amount * price * vatRate;
+
+                var row = $("<tr></tr>");
+                var accessoryCell = $("<td></td>").text(selectedAccessory);
+                var amountCell = $("<td></td>").text(amount);
+                var priceCell = $("<td></td>").text("$" + (price * amount).toFixed(2));
+                var vatCell = $("<td></td>").text("$" + vatAmount.toFixed(2));
+                var deleteCell = $("<td></td>");
+                var deleteButton = $("<button>Delete</button>").click(function(){
+                    var row = $(this).closest("tr");
+                    var priceToRemove = parseFloat(row.find("td:nth-child(3)").text().substring(1));
+                    var vatToRemove = parseFloat(row.find("td:nth-child(4)").text().substring(1));
+
+                    var totalPrice = parseFloat($("#total-price").text().substring(1)) - priceToRemove;
+                    var totalVat = parseFloat($("#total-vat").text().substring(1)) - vatToRemove;
+                    var totalPV = totalPrice + totalVat;
+
+                    $("#total-price").text("$" + totalPrice.toFixed(2));
+                    $("#total-vat").text("$" + totalVat.toFixed(2));
+                    $("#total-price-with-vat").text("$" + totalPV.toFixed(2));
+
+                    row.remove();
+                });
+
+                deleteCell.append(deleteButton);
+                row.append(accessoryCell, amountCell, priceCell, vatCell, deleteCell);
+                $("#product-list").append(row);
+
+                var totalPrice = parseFloat($("#total-price").text().substring(1)) + (price * amount);
+                var totalVat = parseFloat($("#total-vat").text().substring(1)) + vatAmount;
+                var totalPV = totalPrice + totalVat;
+
+                $("#total-price").text("$" + totalPrice.toFixed(2));
+                $("#total-vat").text("$" + totalVat.toFixed(2));
+                $("#total-price-with-vat").text("$" + totalPV.toFixed(2));
+
+                $("#addAccessoryModal").hide();
+            });
+        });
+    </script>
+</body>
+</html>

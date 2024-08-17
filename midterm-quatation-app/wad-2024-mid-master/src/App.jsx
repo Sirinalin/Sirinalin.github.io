@@ -13,17 +13,19 @@ function App() {
   const itemRef = useRef();
   const ppuRef = useRef();
   const qtyRef = useRef();
+  const discountRef = useRef();
 
   const [dataItems, setDataItems] = useState([]);
-  const [ppu, setPpu] = useState(products[0].price)
+  const [ppu, setPpu] = useState(products[0].price);
 
   const addItem = () => {
-    let item = products.find((v) => itemRef.current.value === v.code)
+    let item = products.find((v) => itemRef.current.value === v.code);
 
     const newItem = {
       item: item.name,
-      ppu: ppuRef.current.value,
-      qty: qtyRef.current.value,
+      ppu: parseFloat(ppuRef.current.value),
+      qty: parseInt(qtyRef.current.value, 10),
+      discount: parseFloat(discountRef.current.value) || 0,
     };
 
     setDataItems([...dataItems, newItem]);
@@ -31,18 +33,18 @@ function App() {
 
   const clearDataItems = () => {
     setDataItems([]);
-  }
+  };
 
   const deleteByIndex = (index) => {
     let newDataItems = [...dataItems];
     newDataItems.splice(index, 1);
     setDataItems(newDataItems);
-  }
+  };
 
   const productChange = () => {
-    let item = products.find((v) => itemRef.current.value === v.code)
-    setPpu(item.price)
-  }
+    let item = products.find((v) => itemRef.current.value === v.code);
+    setPpu(item.price);
+  };
 
   return (
     <Container>
@@ -52,26 +54,30 @@ function App() {
             <Col>
               Item
               <Form.Select ref={itemRef} onChange={productChange}>
-                {
-                  products.map((p) => (
-                    <option key={p.code} value={p.code}>
-                      {p.name}
-                    </option>
-                  ))
-                }
+                {products.map((p) => (
+                  <option key={p.code} value={p.code}>
+                    {p.name}
+                  </option>
+                ))}
               </Form.Select>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Price Per Unit</Form.Label>
-              <Form.Control type="number" ref={ppuRef} value={ppu} onChange={e => setPpu(ppuRef.current.value)} />
+              <Form.Control type="number" ref={ppuRef} value={ppu} onChange={(e) => setPpu(ppuRef.current.value)} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Quantity</Form.Label>
               <Form.Control type="number" ref={qtyRef} defaultValue={1} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Label>Discount</Form.Label>
+              <Form.Control type="number" ref={discountRef} defaultValue={0} />
             </Col>
           </Row>
           <hr />
@@ -85,7 +91,8 @@ function App() {
           <QuotationTable
             data={dataItems}
             clearDataItems={clearDataItems}
-            deleteByIndex={deleteByIndex} />
+            deleteByIndex={deleteByIndex}
+          />
         </Col>
       </Row>
     </Container>
